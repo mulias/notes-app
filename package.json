@@ -9,6 +9,9 @@
     "lint": "next lint",
     "format": "prettier --write './**/*.{tsx,ts,js,json}'"
   },
+  "browser": {
+    "typeorm": false
+  },
   "dependencies": {
     "next": "14.2.3",
     "pg": "^8.4.0",
