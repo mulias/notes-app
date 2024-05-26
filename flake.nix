@@ -8,9 +8,9 @@
       overlays = [
         (final: prev: rec {
           nodejs = prev.nodejs_latest;
-          pnpm = prev.nodePackages.pnpm;
-          yarn = (prev.yarn.override { inherit nodejs; });
           tsls = prev.nodePackages.typescript-language-server;
+          postgresql = prev.postgresql;
+          pgadmin = prev.pgadmin;
         })
       ];
       supportedSystems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
@@ -21,7 +21,11 @@
     {
       devShells = forEachSupportedSystem ({ pkgs }: {
         default = pkgs.mkShell {
-          packages = with pkgs; [ node2nix nodejs pnpm yarn tsls ];
+          packages = with pkgs; [ nodejs tsls postgresql pgadmin ];
+
+          shellHook = ''
+            export PGDATA="$PWD/db"
+          '';
         };
       });
     };
