@@ -29,7 +29,7 @@ const NoteForm = ({ note, setNotes, handleClose }: Props) => {
 
   return (
     <form action={submitAction}>
-      <textarea name="body" defaultValue={note?.body} />
+      <textarea name="body" defaultValue={note?.body} className="w-full" />
       {error && <p>{error}</p>}
       <div className="flex gap-2">
         <button onClick={handleClose}>Cancel</button>

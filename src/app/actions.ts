@@ -11,6 +11,12 @@ export const listNotes = async (): Promise<NoteObj[]> => {
   return notes.map((note) => note.toObj());
 };
 
+export const deleteNote = async (id: number) => {
+  const AppDataSource = await getAppDataSource();
+  const noteRepo = AppDataSource.getRepository(Note);
+  await noteRepo.delete(id);
+};
+
 export const persistNote = async (
   id: number | undefined,
   formData: FormData,

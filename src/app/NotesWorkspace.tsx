@@ -15,7 +15,7 @@ const NotesWorkspace = ({ initialNotes }: Props) => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="space-y-8">
-        <NotesList notes={notes} />
+        <NotesList notes={notes} setNotes={setNotes} />
         <AddNote setNotes={setNotes} />
       </div>
     </main>
