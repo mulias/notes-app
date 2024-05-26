@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { User } from "./entity/User";
+import { Note } from "./entity/Note";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -11,7 +11,14 @@ export const AppDataSource = new DataSource({
   database: "marginalia",
   synchronize: true,
   logging: false,
-  entities: [User],
+  entities: [Note],
   migrations: [],
   subscribers: [],
 });
+
+export const getAppDataSource = async (): Promise<DataSource> => {
+  if (!AppDataSource.isInitialized) {
+    await AppDataSource.initialize();
+  }
+  return AppDataSource;
+};
