@@ -58,3 +58,16 @@ It's an app for notes. Maybe we'll figure out a more compelling pitch later, but
   client, so we need to manually copy the Note entities into plain old
   javascript objects before sending them on the wire. Maybe TypeORM has a nice
   serialization utility for this situation, but I couldn't find one.
+- I've implemented the search/filter feature. At this point there's some global
+  state that should be lifted up out of specific components, and some choices to
+  be made about UX. For example when a filter is active the user probably should
+  not be able to create a new note, or maybe they can create a new note and
+  doing so should clear the current filter. Similarly, should the user be able
+  to edit multiple notes at once, or filter while also editing?
+- Choices made for filtering notes by body content: I implemented the filtering
+  in SQL because it would make it easier to add pagination later. Postgres full
+  text search is fiddly and not perfect, but it should be good enough for most
+  cases. The matching is full word/token based instead of substring, so sometimes the
+  search results will go empty in the middle of typing a word. To avoid this and
+  also prevent server load we use debouncing, so that the query is not re-ran on
+  every keystroke.

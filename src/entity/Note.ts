@@ -3,6 +3,7 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  Index,
   UpdateDateColumn,
 } from "typeorm";
 
@@ -15,6 +16,7 @@ export class Note {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Index({ fulltext: true })
   @Column()
   body: string;
 

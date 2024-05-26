@@ -6,7 +6,7 @@ const Home = async () => {
   const notes = await listNotes();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center gap-10 p-24">
       <NotesWorkspace initialNotes={notes} />
     </main>
   );

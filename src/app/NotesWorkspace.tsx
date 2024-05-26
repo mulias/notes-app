@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import type { NoteObj } from "@/entity/Note";
+import NotesFilter from "@/app/NotesFilter";
 import NotesList from "@/app/NotesList";
 import AddNote from "@/app/AddNote";
 
@@ -13,12 +14,13 @@ const NotesWorkspace = ({ initialNotes }: Props) => {
   const [notes, setNotes] = useState(initialNotes);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <>
+      <NotesFilter setNotes={setNotes} />
       <div className="space-y-8">
         <NotesList notes={notes} setNotes={setNotes} />
         <AddNote setNotes={setNotes} />
       </div>
-    </main>
+    </>
   );
 };
 

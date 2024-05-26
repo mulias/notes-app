@@ -1,31 +1,31 @@
 "use server";
 
 import type { Result } from "@/lib/result";
+import { Repository } from "typeorm";
 import { getAppDataSource } from "@/data-source";
 import { Note, NoteBuilder, NoteObj } from "@/entity/Note";
 
 export const listNotes = async (): Promise<NoteObj[]> => {
-  const AppDataSource = await getAppDataSource();
-  const noteRepo = AppDataSource.getRepository(Note);
-  const notes = await noteRepo.find();
+  const notesRepo = await getNotesRepo();
+  const notes = await notesRepo.find();
   return notes.map((note) => note.toObj());
 };
 
 export const deleteNote = async (id: number) => {
-  const AppDataSource = await getAppDataSource();
-  const noteRepo = AppDataSource.getRepository(Note);
-  await noteRepo.delete(id);
+  const notesRepo = await getNotesRepo();
+  await notesRepo.delete(id);
 };
 
 export const persistNote = async (
   id: number | undefined,
   formData: FormData,
 ): Promise<Result> => {
-  const AppDataSource = await getAppDataSource();
-  const repo = AppDataSource.getRepository(Note);
+  const notesRepo = await getNotesRepo();
 
   const note =
-    id === undefined ? Note.newBuilder() : await repo.findOneByOrFail({ id });
+    id === undefined
+      ? Note.newBuilder()
+      : await notesRepo.findOneByOrFail({ id });
 
   const fields = noteFields(formData);
 
@@ -38,7 +38,7 @@ export const persistNote = async (
   const validated = validateNote(note);
 
   if (validated.ok) {
-    await repo.save(note);
+    await notesRepo.save(note);
     return { ok: true };
   } else {
     return validated;
@@ -75,4 +75,27 @@ const validateNote = (note: NoteBuilder): Result => {
   } else {
     return { ok: true };
   }
+};
+
+/**
+ * Search the text body of all notes for matching words using Postgres full
+ * text search. This will not match substrings in words. Return all notes with
+ * a match.
+ */
+export const searchNotes = async (query: string) => {
+  const notesRepo = await getNotesRepo();
+
+  const notes = await notesRepo
+    .createQueryBuilder("note")
+    .where(`to_tsvector(note.body) @@ phraseto_tsquery('english', :query)`, {
+      query,
+    })
+    .getMany();
+
+  return notes.map((note) => note.toObj());
+};
+
+const getNotesRepo = async (): Promise<Repository<Note>> => {
+  const AppDataSource = await getAppDataSource();
+  return AppDataSource.getRepository(Note);
 };
