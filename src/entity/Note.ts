@@ -6,6 +6,10 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 
+export type NoteObj = Pick<Note, "id" | "body" | "createdAt" | "updatedAt">;
+
+export type NoteBuilder = Partial<Note>;
+
 @Entity()
 export class Note {
   @PrimaryGeneratedColumn()
@@ -19,4 +23,13 @@ export class Note {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  static newBuilder(): NoteBuilder {
+    return new Note();
+  }
+
+  toObj(): NoteObj {
+    const { id, body, createdAt, updatedAt } = this;
+    return { id, body, createdAt, updatedAt };
+  }
 }
