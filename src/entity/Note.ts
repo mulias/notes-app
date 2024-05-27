@@ -26,6 +26,17 @@ export class Note {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  /**
+   * Warning: don't use `new Note()` diectly, use `newBuilder()` to create a
+   * note builder, or use query functions to retrieve already persisted notes.
+   */
+  constructor() {
+    this.id = undefined as any;
+    this.body = undefined as any;
+    this.createdAt = undefined as any;
+    this.updatedAt = undefined as any;
+  }
+
   static newBuilder(): NoteBuilder {
     return new Note();
   }
