@@ -5,11 +5,12 @@ import { castNumber } from "@/lib/env";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
+  url: process.env.DB_URL,
   host: process.env.DB_HOST,
   port: castNumber(process.env.DB_PORT),
-  username: process.env.DB_USERNAME,
+  username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  database: process.env.DB_DATABASE,
   synchronize: true,
   logging: process.env.DB_LOGGING == "true",
   entities: [Note],
