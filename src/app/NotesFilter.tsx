@@ -4,8 +4,10 @@ import { useState, useEffect, ChangeEvent } from "react";
 import { useDebounce } from "use-debounce";
 import { listNotes, searchNotes } from "@/app/actions";
 import type { NoteObj } from "@/entity/Note";
+import { castNumber } from "@/lib/env";
 
-const QUERY_DEBOUNCE_MILLISECONDS = 300;
+const QUERY_DEBOUNCE_MILLISECONDS =
+  castNumber(process.env.NOTES_SEARCH_DEBOUNCE_MILLISECONDS) ?? 300;
 
 interface Props {
   setNotes: (notes: NoteObj[]) => void;

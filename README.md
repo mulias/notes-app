@@ -73,3 +73,17 @@ It's an app for notes. Maybe we'll figure out a more compelling pitch later, but
   every keystroke.
 - Starting to add styles. I'm changing the name of the app to Sticky because
   sticky notes are an easy visual analogy to work off of.
+- At this point I'm getting close to done, but there's always more things to do.
+  I don't have much time today to work on this, so I'm going to try to
+  prioritize what I think is most important for a nice MVP.
+  - Extract env variables
+  - Test deploy to Vercel
+  - Add an `/edit/:id` route for when the user edits a note. While editing the
+    user stays on the index view, but all the other notes are not editable, and
+    you can't create a new note or search.
+  - Add a query param for the current search, sync it to the user's input.
+  - Add a header to the app.
+  - Style buttons
+  - Style error message
+  - Add hover interactivity for notes/make text clickable to edit the
+    body.
