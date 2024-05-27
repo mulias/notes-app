@@ -1,4 +1,3 @@
-import { getAppDataSource } from "@/data-source";
 import NotesWorkspace from "@/app/NotesWorkspace";
 import { listNotes } from "@/app/actions";
 
