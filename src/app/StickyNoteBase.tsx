@@ -1,4 +1,6 @@
-import { FunctionComponent, ReactNode } from "react";
+"use client";
+
+import { ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
