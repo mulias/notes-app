@@ -71,3 +71,5 @@ It's an app for notes. Maybe we'll figure out a more compelling pitch later, but
   search results will go empty in the middle of typing a word. To avoid this and
   also prevent server load we use debouncing, so that the query is not re-ran on
   every keystroke.
+- Starting to add styles. I'm changing the name of the app to Sticky because
+  sticky notes are an easy visual analogy to work off of.

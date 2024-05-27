@@ -2,6 +2,7 @@
 
 import { NoteObj } from "@/entity/Note";
 import Note from "@/app/Note";
+import AddNote from "@/app/AddNote";
 
 interface Props {
   notes: NoteObj[];
@@ -9,7 +10,10 @@ interface Props {
 }
 
 const NotesList = ({ notes, setNotes }: Props) => (
-  <ul className="flex flex-col gap-4">
+  <ul className="flex flex-row flex-wrap gap-8">
+    <li>
+      <AddNote setNotes={setNotes} />
+    </li>
     {notes.map((note) => (
       <li key={`${note.id}`}>
         <Note note={note} setNotes={setNotes} />

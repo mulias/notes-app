@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { listNotes, deleteNote } from "@/app/actions";
 import { NoteObj } from "@/entity/Note";
 import NoteForm from "@/app/NoteForm";
+import StickyNoteBase from "@/app/StickyNoteBase";
 
 interface Props {
   note: NoteObj;
@@ -25,20 +26,28 @@ const Note = ({ note, setNotes }: Props) => {
     });
   };
 
-  return edit ? (
-    <NoteForm note={note} setNotes={setNotes} handleClose={handleCloseForm} />
-  ) : (
-    <div className="flex gap-4">
-      <p className="mr-auto">{note.body}</p>
-      <div className="flex gap-2">
-        <button onClick={handleOpenForm} disabled={isPending}>
-          Edit
-        </button>
-        <button onClick={deleteAction} disabled={isPending}>
-          {isPending ? "Deleting" : "Delete"}
-        </button>
-      </div>
-    </div>
+  return (
+    <StickyNoteBase colorSeed={note.createdAt.getTime()}>
+      {edit ? (
+        <NoteForm
+          note={note}
+          setNotes={setNotes}
+          handleClose={handleCloseForm}
+        />
+      ) : (
+        <div className="flex flex-col h-full">
+          <p className="mb-auto break-words">{note.body}</p>
+          <div className="flex justify-end gap-2">
+            <button onClick={handleOpenForm} disabled={isPending}>
+              Edit
+            </button>
+            <button onClick={deleteAction} disabled={isPending}>
+              {isPending ? "Deleting" : "Delete"}
+            </button>
+          </div>
+        </div>
+      )}
+    </StickyNoteBase>
   );
 };
 

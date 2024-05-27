@@ -28,10 +28,14 @@ const NoteForm = ({ note, setNotes, handleClose }: Props) => {
   };
 
   return (
-    <form action={submitAction}>
-      <textarea name="body" defaultValue={note?.body} className="w-full" />
+    <form action={submitAction} className="h-full flex flex-col">
+      <textarea
+        name="body"
+        defaultValue={note?.body}
+        className="w-full h-full bg-transparent resize-none"
+      />
       {error && <p>{error}</p>}
-      <div className="flex gap-2">
+      <div className="flex justify-end gap-2">
         <button onClick={handleClose}>Cancel</button>
         <button type="submit" disabled={isPending}>
           {isPending ? "Submitting..." : "Submit"}

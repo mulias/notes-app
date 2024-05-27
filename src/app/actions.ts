@@ -7,7 +7,7 @@ import { Note, NoteBuilder, NoteObj } from "@/entity/Note";
 
 export const listNotes = async (): Promise<NoteObj[]> => {
   const notesRepo = await getNotesRepo();
-  const notes = await notesRepo.find();
+  const notes = await notesRepo.find({ order: { createdAt: "DESC" } });
   return notes.map((note) => note.toObj());
 };
 
