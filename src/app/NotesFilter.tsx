@@ -21,12 +21,13 @@ const NotesFilter = ({ setNotes }: Props) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setQuery(e.target.value);
 
+  // Repopulate the displayed notes based on user query
   useEffect(() => {
     const search = async () => {
-      if (query == "") {
+      if (debouncedQuery === "") {
         setNotes(await listNotes());
       } else {
-        setNotes(await searchNotes(query));
+        setNotes(await searchNotes(debouncedQuery));
       }
     };
 
@@ -36,7 +37,7 @@ const NotesFilter = ({ setNotes }: Props) => {
     } else {
       setDidMount(true);
     }
-  }, [debouncedQuery]);
+  }, [debouncedQuery]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return <input type="text" onChange={handleChange} />;
 };
