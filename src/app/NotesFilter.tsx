@@ -39,7 +39,17 @@ const NotesFilter = ({ setNotes }: Props) => {
     }
   }, [debouncedQuery]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return <input type="text" onChange={handleChange} />;
+  return (
+    <label className="flex flex-row gap-2 items-baseline">
+      <p>Filter:</p>
+      <input
+        type="text"
+        placeholder="find some notes"
+        onChange={handleChange}
+        className="border-b border-gray-200 bg-transparent pt-4 pb-1.5 text-sm outline outline-0 transition-all focus:border-gray-900 focus:outline-0"
+      />
+    </label>
+  );
 };
 
 export default NotesFilter;

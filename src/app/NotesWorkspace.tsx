@@ -14,7 +14,10 @@ const NotesWorkspace = ({ initialNotes }: Props) => {
 
   return (
     <>
-      <NotesFilter setNotes={setNotes} />
+      <div className="flex flex-row gap-10 w-full justify-start items-end">
+        <h1 className="text-5xl">Sticky</h1>
+        <NotesFilter setNotes={setNotes} />
+      </div>
       <NotesList notes={notes} setNotes={setNotes} />
     </>
   );

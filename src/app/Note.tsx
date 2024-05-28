@@ -5,6 +5,7 @@ import { listNotes, deleteNote } from "@/app/actions";
 import { NoteObj } from "@/entity/Note";
 import NoteForm from "@/app/NoteForm";
 import StickyNoteBase from "@/app/StickyNoteBase";
+import TextButton from "@/components/TextButton";
 
 interface Props {
   note: NoteObj;
@@ -27,7 +28,11 @@ const Note = ({ note, setNotes }: Props) => {
   };
 
   return (
-    <StickyNoteBase colorSeed={note.createdAt.getTime()}>
+    <StickyNoteBase
+      colorSeed={note.createdAt.getTime()}
+      className={`group hover:drop-shadow-2xl cursor-pointer ${edit && "drop-shadow-2xl scale-105"}`}
+      onClick={edit ? undefined : handleOpenForm}
+    >
       {edit ? (
         <NoteForm
           note={note}
@@ -36,14 +41,18 @@ const Note = ({ note, setNotes }: Props) => {
         />
       ) : (
         <div className="flex flex-col h-full">
-          <p className="mb-auto break-words">{note.body}</p>
-          <div className="flex justify-end gap-2">
-            <button onClick={handleOpenForm} disabled={isPending}>
+          <p className="mb-auto break-words p-6">{note.body}</p>
+          <div className="flex justify-end gap-2 pb-4 px-6">
+            <TextButton
+              onClick={handleOpenForm}
+              disabled={isPending}
+              className="group-hover:underline-offset-4"
+            >
               Edit
-            </button>
-            <button onClick={deleteAction} disabled={isPending}>
+            </TextButton>
+            <TextButton onClick={deleteAction} disabled={isPending}>
               {isPending ? "Deleting" : "Delete"}
-            </button>
+            </TextButton>
           </div>
         </div>
       )}

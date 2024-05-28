@@ -10,7 +10,6 @@ It's an app for notes. Maybe we'll figure out a more compelling pitch later, but
 - TypeScript
 - TypeORM
 - PostgreSQL
-- BaseUI
 - TailwindCSS
 
 ### Implementation Steps
@@ -87,3 +86,13 @@ It's an app for notes. Maybe we'll figure out a more compelling pitch later, but
   - Style error message
   - Add hover interactivity for notes/make text clickable to edit the
     body.
+- There's some complexity related to using a separate notes edit route to edit a
+  note while staying on the notes index page. It seems like the NextJS
+  features I want are "parallel routes" and "intercepting routes", but I don't want
+  to invest time into getting that working. Similarly I forgot that syncing app
+  state with a query string is pretty fiddly. I got it working but it added a
+  lot of dicey hooks-based code that didn't feel worth it. I think the most
+  sustainable solution would be to use a reducer and a context to hold the
+  global app state, which would include the list of notes, the current filter,
+  and if a note is getting edited. I feel comfortable implementing that, but I'm
+  pretty much out of time.

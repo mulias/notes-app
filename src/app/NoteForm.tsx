@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { listNotes, persistNote } from "@/app/actions";
 import type { NoteObj } from "@/entity/Note";
+import TextButton from "@/components/TextButton";
 
 interface Props {
   note?: NoteObj;
@@ -28,18 +29,24 @@ const NoteForm = ({ note, setNotes, handleClose }: Props) => {
   };
 
   return (
-    <form action={submitAction} className="h-full flex flex-col">
+    <form
+      action={submitAction}
+      className={`h-full flex flex-col ${error && "outline outline-offset-1 outline-red-500"}`}
+    >
       <textarea
         name="body"
         defaultValue={note?.body}
-        className="w-full h-full bg-transparent resize-none"
+        className="w-full h-full bg-transparent resize-none p-6 outline-none"
+        autoFocus
       />
-      {error && <p>{error}</p>}
-      <div className="flex justify-end gap-2">
-        <button onClick={handleClose}>Cancel</button>
-        <button type="submit" disabled={isPending}>
+      {error && <p className="px-6 py-2 text-white">Error: {error}</p>}
+      <div className="flex justify-end gap-2 pb-4 px-6">
+        <TextButton type="button" onClick={handleClose} disabled={isPending}>
+          Cancel
+        </TextButton>
+        <TextButton type="submit" disabled={isPending}>
           {isPending ? "Submitting..." : "Submit"}
-        </button>
+        </TextButton>
       </div>
     </form>
   );

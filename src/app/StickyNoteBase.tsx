@@ -5,10 +5,20 @@ import { ReactNode } from "react";
 interface Props {
   children: ReactNode;
   colorSeed: number;
+  className?: string;
+  onClick?: () => void;
 }
 
-const StickyNoteBase = ({ children, colorSeed }: Props) => (
-  <div className={`w-[300px] h-[300px] p-6 ${bgColor(colorSeed)}`}>
+const StickyNoteBase = ({
+  children,
+  colorSeed,
+  className,
+  ...props
+}: Props) => (
+  <div
+    className={`w-[300px] h-[300px] ${bgColor(colorSeed)} ${className}`}
+    {...props}
+  >
     {children}
   </div>
 );

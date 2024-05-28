@@ -15,7 +15,11 @@ const AddNote = ({ setNotes }: Props) => {
   const handleClose = () => setOpen(false);
 
   return (
-    <StickyNoteBase colorSeed={0}>
+    <StickyNoteBase
+      colorSeed={0}
+      className={`group hover:drop-shadow-2xl cursor-pointer ${open && "drop-shadow-2xl scale-105"}`}
+      onClick={open ? undefined : handleOpen}
+    >
       {open ? (
         <NoteForm setNotes={setNotes} handleClose={handleClose} />
       ) : (
