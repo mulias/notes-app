@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, MouseEvent } from "react";
 import { listNotes, deleteNote } from "@/app/actions";
 import { NoteObj } from "@/entity/Note";
 import NoteForm from "@/app/NoteForm";
@@ -19,7 +19,10 @@ const Note = ({ note, setNotes }: Props) => {
 
   const [isPending, startTransition] = useTransition();
 
-  const deleteAction = async () => {
+  const deleteAction = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     startTransition(async () => {
       await deleteNote(note.id);
       const notes = await listNotes();
