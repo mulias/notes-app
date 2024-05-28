@@ -1,6 +1,6 @@
-# Notes App
+# Sticky
 
-It's an app for notes. Maybe we'll figure out a more compelling pitch later, but that's enough to get started!
+Demo app for creating, editing, deleting, and searching a bunch of sticky notes.
 
 ## The Plan
 
@@ -96,3 +96,36 @@ It's an app for notes. Maybe we'll figure out a more compelling pitch later, but
   global app state, which would include the list of notes, the current filter,
   and if a note is getting edited. I feel comfortable implementing that, but I'm
   pretty much out of time.
+- I've reached my personal deadline, so I'm done. The final bit of style updates
+  are a bit messy, but the results are mostly fine.
+
+## Wrapping Up
+
+### Running the App locally
+
+- Run `npm install` to install dependencies.
+- Set up a local postgres server
+- Copy `.env.example` to `.env.local` and change settings to match your postgres
+  config.
+- Run `npm run build` and then `npm run start` to launch the app.
+
+### Cut for time
+
+Given more time the first thing I would do would be to create a react context
+for a reducer/store to share some global app state. This would make it much
+easier to implement some UI features that cross between components. Namely that
+only one note should be edited at a time, and while editing a note it should not
+be possible to edit other notes, create a new note, or filter notes. Similarly
+when filtering notes the new note option should not be visible.
+
+The filter implementation could also use some work. I still think using DB-backed
+search is the way to go since it makes pagination much simpler, but I maybe
+should have gone with an `ILIKE` in this basic implementation. The Full Text
+Search implementation has some unhelpful behavior, such as filtering out most
+search terms that aren't nouns. The fancy thing to do would be to use `pg_trgm`
+which supports fuzzy search.
+
+Finally the UI is mostly serviceable at this point, but the error messages are
+pretty bad. I designed myself into a corner with the sticky note skeuomorphism,
+not leaving much space for error states. Maybe don't use red as a sticky note
+color?
