@@ -7,12 +7,17 @@ export const seedAdventurerNotes = async () => {
 
   await Promise.all(
     notes.map((body) => {
-      const note = Note.newBuilder();
-      note.body = body;
-      return repo.save(note);
+      const randomDelay = Math.floor(Math.random() * 100);
+      sleep(randomDelay).then(() => {
+        const note = Note.newBuilder();
+        note.body = body;
+        return repo.save(note);
+      });
     }),
   );
 };
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 const notes = [
   "The baby dragon's breath grows dim; feed it the embers of twilight before sunset.",
